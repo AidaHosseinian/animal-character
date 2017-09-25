@@ -1,0 +1,32 @@
+header{
+    text-align: center;
+    background-color: #15e810;
+    height: 150px;
+    border-bottom: 2px solid #ccc;
+    box-shadow: 10px 2px 5px #888888;
+    .zebra{
+        margin: 0 40px 70px;
+    }
+    .fox{
+        margin: 0 40px 70px;
+    }
+
+    @include minLarge{  
+        text-align: center; 
+        .container{
+            max-width: 900px
+        }
+    }
+     
+    @include minSmall{ 
+        .giraff,.fox{
+            display: none 
+        } 
+    }
+    @include minXsmall{ 
+        .elephant,.lion{
+            width: 100px;
+        } 
+    }
+}
+
