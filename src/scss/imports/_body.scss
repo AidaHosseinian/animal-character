@@ -23,24 +23,9 @@
                 display: block;
             }
             .content-box{
-                @include minSmall{
-                    min-width:100%
-                }
                 width: 33%;
                 padding: 15px;
                 float: left;
-                .question-option{
-                    background-color:#f2e3d0;
-                    padding: 15px;
-                }
-                img{
-                    display: block;
-                    margin: 0 auto;
-                    padding-top: 15px;
-                }
-                span{
-                    font-size: 14px;
-                }
             }
         }
     }

@@ -14,17 +14,17 @@ $screenXsmall : 500px;
     }
 }
 @mixin minMedium(){
-    @media(min-width:$screenMedium){
+    @media (min-width:$screenMedium){
         @content;
     }
 }
-@mixin minSmall(){
-    @media(max-width:$screenSmall){
+@mixin maxSmall(){
+    @media (max-width:$screenSmall){
         @content;
     }
 }
-@mixin minXsmall(){
-    @media(max-width:$screenXsmall){
+@mixin maxXsmall(){
+    @media (max-width:$screenXsmall){
         @content;
     }
 }

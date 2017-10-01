@@ -21,8 +21,8 @@ header {
     header .giraff, header .fox {
       display: none; } }
   @media (max-width: 500px) {
-    header .elephant, header .lion {
-      width: 100px; } }
+    header .elephant, header .lion, header .zebra {
+      width: 70px; } }
 
 .body {
   text-align: center; }
@@ -48,18 +48,115 @@ header {
         width: 33%;
         padding: 15px;
         float: left; }
-        @media (max-width: 768px) {
-          .body .container .content .content-box {
-            min-width: 100%; } }
-        .body .container .content .content-box .question-option {
-          background-color: #f2e3d0;
-          padding: 15px; }
-        .body .container .content .content-box img {
-          display: block;
-          margin: 0 auto;
-          padding-top: 15px; }
-        .body .container .content .content-box span {
-          font-size: 14px; }
+
+@media (max-width: 768px) {
+  .questions .options-wrapper {
+    height: 250px;
+    position: relative;
+    width: 100%;
+    overflow-x: hidden; } }
+
+.questions .options-wrapper.option-1 .content-box:nth-child(1) {
+  left: 0%; }
+
+.questions .options-wrapper.option-1 .content-box:nth-child(2) {
+  left: 100%; }
+
+.questions .options-wrapper.option-1 .content-box:nth-child(3) {
+  left: 200%; }
+
+.questions .options-wrapper.option-2 .content-box:nth-child(1) {
+  left: -100%; }
+
+.questions .options-wrapper.option-2 .content-box:nth-child(2) {
+  left: 0%; }
+
+.questions .options-wrapper.option-2 .content-box:nth-child(3) {
+  left: 100%; }
+
+.questions .options-wrapper.option-3 .content-box:nth-child(1) {
+  left: -200%; }
+
+.questions .options-wrapper.option-3 .content-box:nth-child(2) {
+  left: -100%; }
+
+.questions .options-wrapper.option-3 .content-box:nth-child(3) {
+  left: 0%; }
+
+@media (max-width: 768px) {
+  .questions .options-wrapper .content-box {
+    min-width: 100%;
+    width: 100%;
+    position: absolute;
+    -webkit-transition: left ease-in 0.2s;
+    -moz-transition: left ease-in 0.2s;
+    -o-transition: left ease-in 0.2s;
+    transition: left ease-in 0.2s; } }
+
+.questions .options-wrapper .content-box .question-option {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border: 3px solid transparent;
+  cursor: pointer;
+  -webkit-transition: all ease-in 0.2s;
+  -moz-transition: all ease-in 0.2s;
+  -o-transition: all ease-in 0.2s;
+  transition: all ease-in 0.2s; }
+  @media (max-width: 768px) {
+    .questions .options-wrapper .content-box .question-option {
+      max-width: 350px;
+      width: 100%;
+      margin: 0 auto; } }
+  .questions .options-wrapper .content-box .question-option:hover {
+    border-color: #999;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px; }
+  .questions .options-wrapper .content-box .question-option.selected {
+    background-color: #f2e3d0;
+    border-color: orange;
+    cursor: default;
+    -webkit-box-shadow: 2px 2px 10px #ccc;
+    -moz-box-shadow: 2px 2px 10px #ccc;
+    box-shadow: 2px 2px 10px #ccc;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px; }
+  .questions .options-wrapper .content-box .question-option img {
+    display: block;
+    margin: 0 auto;
+    padding-top: 15px; }
+  .questions .options-wrapper .content-box .question-option span {
+    font-size: 14px; }
+  .questions .options-wrapper .content-box .question-option img, .questions .options-wrapper .content-box .question-option span {
+    pointer-events: none; }
+
+.questions .options-wrapper .arrow {
+  display: none;
+  border: 40px solid transparent;
+  position: absolute;
+  top: 50%;
+  margin-top: -50px;
+  cursor: pointer; }
+  @media (max-width: 768px) {
+    .questions .options-wrapper .arrow {
+      display: block; } }
+  @media (max-width: 500px) {
+    .questions .options-wrapper .arrow {
+      border-width: 20px;
+      margin-top: -40px; } }
+  .questions .options-wrapper .arrow.next {
+    border-left-color: orange;
+    right: 10px; }
+  .questions .options-wrapper .arrow.prev {
+    border-right-color: orange;
+    left: 10px; }
+  .questions .options-wrapper .arrow.disable {
+    cursor: default; }
+    .questions .options-wrapper .arrow.disable.next {
+      border-left-color: #ccc; }
+    .questions .options-wrapper .arrow.disable.prev {
+      border-right-color: #ccc; }
 
 * {
   margin: 0;

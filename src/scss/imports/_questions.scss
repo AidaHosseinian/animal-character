@@ -1,0 +1,104 @@
+.questions{
+    .options-wrapper{
+        @include maxSmall{
+            height: 250px;
+            position: relative;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        @mixin optionGenerator($num,$start){
+            &.option-#{$num}{
+                .content-box:nth-child(1){left : ($start*100%)}
+                .content-box:nth-child(2){left : (($start+1)*100%)}
+                .content-box:nth-child(3){left : (($start+2)*100%)} 
+            }
+        } 
+        @include optionGenerator(1,0);
+        @include optionGenerator(2,-1);
+        @include optionGenerator(3,-2);
+
+        .content-box{
+            @include maxSmall{
+                min-width:100%;
+                width: 100%;
+                position: absolute;
+                @include transition(left ease-in .2s);
+            }
+            .question-option{
+                background-color:#f9f9f9;
+                padding: 15px;
+                border:3px solid transparent;
+                cursor: pointer;
+                @include transition(all ease-in .2s);
+                @include maxSmall{
+                    max-width:350px;
+                    width: 100%; 
+                    margin:0 auto;
+                }
+
+                &:hover{
+                    border-color:#999;
+                    @include borderRadius(30px)
+                }
+                &.selected{
+                    background-color: #f2e3d0;
+                    border-color:orange;
+                    cursor: default;
+                    @include boxShadow(2px 2px 10px #ccc);
+                    @include borderRadius(15px);
+                }
+
+                 
+                img{
+                    display: block;
+                    margin: 0 auto;
+                    padding-top: 15px;
+                }
+                span{
+                    font-size: 14px;
+                }
+
+                img,span{
+                    pointer-events: none;
+                }
+            }
+        }
+
+        .arrow{
+            display: none;
+            border:40px solid transparent;
+            position: absolute;
+            top:50%;
+            margin-top:-50px; 
+            cursor: pointer;
+            @include maxSmall{
+                display: block;
+            }
+            @include maxXsmall{
+                border-width:20px; 
+                margin-top:-40px; 
+            }
+            &.next{
+                border-left-color:orange;
+                right:10px;
+            }
+            
+            &.prev{
+                border-right-color:orange;
+                left:10px;
+            }
+            
+            &.disable{ 
+                cursor: default; 
+                &.next{
+                    border-left-color:#ccc; 
+                } 
+                &.prev{
+                    border-right-color:#ccc; 
+                }
+            }
+        }
+    }
+}
+               

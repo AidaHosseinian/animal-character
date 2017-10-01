@@ -18,14 +18,14 @@ header{
         }
     }
      
-    @include minSmall{ 
+    @include maxSmall{ 
         .giraff,.fox{
             display: none 
         } 
     }
-    @include minXsmall{ 
-        .elephant,.lion{
-            width: 100px;
+    @include maxXsmall{ 
+        .elephant,.lion,.zebra{
+            width: 70px;
         } 
     }
 }
