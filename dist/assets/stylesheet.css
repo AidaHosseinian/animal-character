@@ -1,6 +1,87 @@
+@charset "UTF-8";
 .container {
   width: 99%;
   margin: 0 auto; }
+
+.btn {
+  width: 150px;
+  margin-left: 10px;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 5px;
+  color: #fff;
+  position: relative;
+  border: 0;
+  font-size: 16px;
+  outline: none;
+  -webkit-transition: box-shadow ease-in-out 0.2s;
+  -moz-transition: box-shadow ease-in-out 0.2s;
+  -o-transition: box-shadow ease-in-out 0.2s;
+  transition: box-shadow ease-in-out 0.2s; }
+  .btn.next span, .btn.prev span {
+    position: relative;
+    -webkit-transition: all ease-in-out 0.2s;
+    -moz-transition: all ease-in-out 0.2s;
+    -o-transition: all ease-in-out 0.2s;
+    transition: all ease-in-out 0.2s; }
+    .btn.next span:after, .btn.prev span:after {
+      position: absolute;
+      margin-top: -3px;
+      font-weight: bold;
+      font-size: 20px;
+      opacity: 0;
+      -webkit-transition: all ease-in-out 0.2s;
+      -moz-transition: all ease-in-out 0.2s;
+      -o-transition: all ease-in-out 0.2s;
+      transition: all ease-in-out 0.2s; }
+  .btn.next {
+    background-color: #15e810; }
+    .btn.next span {
+      padding-right: 0; }
+      .btn.next span:after {
+        content: '»';
+        right: 0; }
+  .btn.prev {
+    background-color: #E8D210;
+    color: #333; }
+    .btn.prev span {
+      padding-left: 0; }
+      .btn.prev span:after {
+        content: '«';
+        left: 0; }
+  .btn:hover {
+    cursor: pointer;
+    -webkit-box-shadow: 2px 2px 5px #ccc;
+    -moz-box-shadow: 2px 2px 5px #ccc;
+    box-shadow: 2px 2px 5px #ccc; }
+    .btn:hover.next span:after, .btn:hover.prev span:after {
+      opacity: 1; }
+    .btn:hover.next {
+      background-color: #11b80d; }
+      .btn:hover.next span {
+        padding-right: 15px; }
+    .btn:hover.prev {
+      background-color: #f5e669; }
+      .btn:hover.prev span {
+        padding-left: 15px; }
+  .btn[disabled] {
+    pointer-events: none;
+    background-color: #eee;
+    color: #ccc;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none; }
+    .btn[disabled]:hover {
+      cursor: default;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none; }
+      .btn[disabled]:hover span {
+        padding-right: 0;
+        padding-left: 0; }
+        .btn[disabled]:hover span:after {
+          display: none; }
 
 header {
   text-align: center;
