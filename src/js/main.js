@@ -110,66 +110,86 @@
     }
   
     
-    var optionTemplate = getTemplate('content-box')
 
 
     // Handling questions behaviors
     var QuestionsHandler = function(){
         // getting references & default values
-        var questionWrapper = document.getElementById('questions')
         var template = getTemplate('question') 
+        var optionTemplate = getTemplate('option') // each option
+
         var activeQuestion = 1;
-
-        {
-            function selectAnOption(e){
-                if(hasClass(e.target,'question-option')){
-                    var allOptions = document.getElementsByClassName('question-option')
-                    for(var i = 0 ; i < allOptions.length;i++)
-                        removeClass(allOptions[i],'selected')
-                    
-                    addClass(e.target,'selected')
-                } 
-            }
-            // binding evetns
-            questionWrapper.addEventListener('click',selectAnOption)
-        }
-
-        function setActiveQuestion(num){ 
-            var prevBtn= document.getElementById('question-prev-btn');
-            var nextBtn= document.getElementById('question-next-btn');
+        var questionWrapper = document.getElementById('questions')
+        var prevBtn= document.getElementById('question-prev-btn')
+        var nextBtn= document.getElementById('question-next-btn')
+    
+        bindEvents()
+   
+        function setActiveQuestion(num){  
             var questions = questionWrapper.children
             for(var i=0;i<questions.length;i++){
                 questions[i].style.display = 'none'
-            }
+            } 
             activeQuestion += num
+            if(activeQuestion<1)
+                activeQuestion = 1 
+            else if(activeQuestion > questions.length)
+                activeQuestion = questions.length
+
+            questions[activeQuestion-1].style.display = 'block'
+
+            handleButtonState()
+        }
+        function handleButtonState(){
             prevBtn.removeAttribute("disabled")
             nextBtn.removeAttribute("disabled")
-            if(activeQuestion<=1){
-                activeQuestion = 1 
-                prevBtn.setAttribute("disabled", "disabled")
-                
-            }else if(activeQuestion >= questions.length){
-                activeQuestion = questions.length
-                nextBtn.setAttribute("disabled", "disabled")
-            } 
-            questions[activeQuestion-1].style.display = 'block'
-        }
 
+            if(activeQuestion<=1)
+                prevBtn.setAttribute("disabled", "disabled") 
+            else if(activeQuestion >= questions.length) 
+                nextBtn.setAttribute("disabled", "disabled") 
+        }
+        function bindEvents(){ 
+            prevBtn.addEventListener('click',function(){
+                setActiveQuestion(-1)
+            })
+            nextBtn.addEventListener('click',function(){
+                setActiveQuestion(1)
+            })
+            questionWrapper.addEventListener('click',function (e){
+                if(hasClass(e.target,'question-option')){
+                    var optionsWrapper = e.target.parentNode.parentNode
+
+                    var allOptions = optionsWrapper.children 
+                    for(var i = 0 ; i < allOptions.length;i++){ 
+                        if(hasClass(allOptions[i],'option'))
+                            removeClass(allOptions[i].children[0],'selected')
+                    }
+                    
+                    addClass(e.target,'selected')
+                } 
+            })
+        } 
+        function generateQuestionOptions(options){
+            var optionsHtml = ''
+            for(var i=0;i<options.length;i++){
+                var option = options[i] 
+                optionsHtml += optionTemplate.replace('[imgsrc]','src="'+option.imgsrc+'"')
+                                             .replace('[text]',option.text)
+                                             .replace('[value]',option.value)
+            }
+            return optionsHtml;
+        }
         return {
             generateQuestion:function(questionData){
-                questionWrapper.innerHTML += template
-                                                .replace('[num]',questionData.num)
-                                                .replace('[title]',questionData.title) 
+                questionWrapper.innerHTML += 
+                    template.replace('[num]',questionData.num)
+                            .replace('[title]',questionData.title) 
+                            .replace('[options]',generateQuestionOptions(questionData.options)) 
             },
             init:function(){
                 setActiveQuestion(0)
-            },
-            next:function(){
-                setActiveQuestion(+1)
-            },
-            prev:function(){
-                setActiveQuestion(-1)
-            }
+            } 
         }
     }  
     // objects execution
@@ -183,35 +203,6 @@
 
     questionHandler.init()
  
-   
-    document.getElementById('question-prev-btn').addEventListener('click',function(){
-        questionHandler.prev()
-    })
-    document.getElementById('question-next-btn').addEventListener('click',function(){
-        questionHandler.next()
-    })
- 
-    /*
-
-    var questionTitle = document.getElementById('questionTitle')
-    var questionOptions = document.getElementById('questionOptions')
-
-    for(var questionIndex = 0; questionIndex< questions.length; questionIndex++ ){
-        var question = questions[questionIndex]
-        questionTitle.innerHTML = question.title
-        for(var optionIndex = 0; optionIndex< question.options.length;optionIndex++ ){
-            var option = question.options[optionIndex]
-            questionOptions.innerHTML +=  '<div class="content-box">\
-                                                <div class="question-option">\
-                                                    <img src="'+option.imgsrc+'" alt="">\
-                                                    <span>'+option.text+'</span>\
-                                                </div>\
-                                            </div>'
-        } 
-    }
-      */               
-    
-
           
     return
     // Handling questions options slider in smaller size screen < 768px.
