@@ -49,6 +49,8 @@
       .btn.prev span:after {
         content: '«';
         left: 0; }
+  .btn.result {
+    background-color: #2196F3; }
   .btn:hover {
     cursor: pointer;
     -webkit-box-shadow: 2px 2px 5px #ccc;
@@ -179,10 +181,14 @@ header {
   padding: 15px;
   border: 3px solid transparent;
   cursor: pointer;
+  height: 250px;
   -webkit-transition: all ease-in 0.2s;
   -moz-transition: all ease-in 0.2s;
   -o-transition: all ease-in 0.2s;
   transition: all ease-in 0.2s; }
+  .questions .options-wrapper .content-box .question-option .icon {
+    height: 100px;
+    pointer-events: none; }
   @media (max-width: 768px) {
     .questions .options-wrapper .content-box .question-option {
       max-width: 350px;

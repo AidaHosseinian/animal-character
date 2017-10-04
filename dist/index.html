@@ -39,7 +39,10 @@
                 <!-- option template markup -->
                 <div class="content-box option">
                     <div class="question-option">
-                        <img [imgsrc] alt="">
+                        <div class="icon">
+                                <img [imgsrc] alt="">
+                        </div>
+                        
                         <span>[text]</span>
                     </div>
                 </div>
@@ -50,6 +53,9 @@
             </button>
             <button type="button" class="btn next" id="question-next-btn" disabled>
                 <span>Next question</span>
+            </button>
+            <button type="button" class="btn result" id="question-result-btn" disabled>
+                    <span>Result</span>
             </button>
         </div>
     </section>

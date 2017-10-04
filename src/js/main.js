@@ -7,80 +7,116 @@
             options:[
                 {
                     imgsrc:'assets/img/q1/adamak-charecter.png',
+                    whichoption:'A',
                     text:'Raise your hand and say :<br/> Me , Me!',
                     value:1
                 },
                 {
                     imgsrc:'assets/img/q1/shame-charecter.png',
-                    text:'Raise your hand and say :<br/> Me , Me!',
+                    whichoption:'B',
+                    text:'Hide your face of your teacher,while you are shaking of stress  ',
                     value:1
                 },
                 {
                     imgsrc:'assets/img/q1/confidence-charecter.png',
-                    text:'Raise your hand and say :<br/> Me , Me!',
-                    value:1
+                    whichoption:'C',
+                    text:'Quickly read the text and the raise your hand',
+                    value:1 
                 }
             ] 
         },
         {
             num: 2 , 
-            title:  'At school one person are asked to read loadly a text',
+            title:  'In a basketball play you:',
             options:[
                 {
-                    imgsrc:'assets/img/q1/adamak-charecter.png',
-                    text:'Raise your hand and say :<br/> Me , Me!',
+                    imgsrc:'assets/img/q2/basketball1.png',
+                    whichoption:'A',
+                    text:'You do nothing and waiting for a chance in the end of the court',
                     value:1
                 },
                 {
-                    imgsrc:'assets/img/q1/shame-charecter.png',
-                    text:'Raise your hand and say :<br/> Me , Me!',
+                    imgsrc:'assets/img/q2/basketball2.png',
+                    whichoption:'B',
+                    text:'Suddenly you are unpredictable and you\'re trying to win the trophy.',
                     value:1
                 },
                 {
-                    imgsrc:'assets/img/q1/confidence-charecter.png',
-                    text:'Raise your hand and say :<br/> Me , Me!',
+                    imgsrc:'assets/img/q2/basketball3.png',
+                    whichoption:'C',
+                    text:'You run quickly everywhere and motivate the team ',
                     value:1
                 }
             ] 
         },
         {
             num: 3 , 
-            title:  'At school one person are asked to read loadly a text',
+            title:  'In your holiday:',
             options:[
                 {
-                    imgsrc:'assets/img/q1/adamak-charecter.png',
-                    text:'Raise your hand and say :<br/> Me , Me!',
+                    imgsrc:'assets/img/q3/shape1.png',
+                    whichoption:'A',
+                    text:'Meeting friends',
                     value:1
                 },
                 {
-                    imgsrc:'assets/img/q1/shame-charecter.png',
-                    text:'Raise your hand and say :<br/> Me , Me!',
+                    imgsrc:'assets/img/q3/shape2.png',
+                    whichoption:'B',
+                    text:'Do a Game',
                     value:1
                 },
                 {
-                    imgsrc:'assets/img/q1/confidence-charecter.png',
-                    text:'Raise your hand and say :<br/> Me , Me!',
+                    imgsrc:'assets/img/q3/shape3.png',
+                    whichoption:'C',
+                    text:'Your choice is reading a book',
                     value:1
                 }
             ] 
         },
         {
             num: 4 , 
-            title:  'At school one person are asked to read loadly a text',
+            title:  'In a boring party',
             options:[
                 {
-                    imgsrc:'assets/img/q1/adamak-charecter.png',
-                    text:'Raise your hand and say :<br/> Me , Me!',
+                    imgsrc:'assets/img/q4/pic1.png',
+                    whichoption:'A',
+                    text:'You think about your tomorrow plan ',
                     value:1
                 },
                 {
-                    imgsrc:'assets/img/q1/shame-charecter.png',
-                    text:'Raise your hand and say :<br/> Me , Me!',
+                    imgsrc:'assets/img/q4/pic2.png',
+                    whichoption:'B',
+                    text:'you sit in a corner and listen to others',
                     value:1
                 },
                 {
-                    imgsrc:'assets/img/q1/confidence-charecter.png',
-                    text:'Raise your hand and say :<br/> Me , Me!',
+                    imgsrc:'assets/img/q4/pic3.png',
+                    whichoption:'C',
+                    text:'You make fun for other people',
+                    value:1
+                }
+            ] 
+        },
+        {
+            num: 5 , 
+            title:  'When you are asked to look after a child',
+            options:[
+                {
+                    imgsrc:'assets/img/q5/pic1.png',
+                    whichoption:'A',
+                    text:'You think all the time when she/he sleep. ',
+                    value:1
+                },
+                {
+                    imgsrc:'assets/img/q5/pic2.png',
+                    whichoption:'B',
+                    text:'you engage him/her',
+                    value:1
+                },
+                {
+                    imgsrc:'assets/img/q5/pic3.png',
+                    whichoption:'C',
+                    text:'You try to control him until his/her parents come to him',
                     value:1
                 }
             ] 
@@ -108,8 +144,10 @@
         placeHolder.parentNode.removeChild(placeHolder)
         return markup 
     }
-  
-    
+    function ifAllQuestionsIsAnswered(){
+        var selectedItems= document.getElementsByClassName('selected')
+        return selectedItems.length == 5  
+    } 
 
 
     // Handling questions behaviors
@@ -122,6 +160,7 @@
         var questionWrapper = document.getElementById('questions')
         var prevBtn= document.getElementById('question-prev-btn')
         var nextBtn= document.getElementById('question-next-btn')
+        var resultbtn= document.getElementById('question-result-btn')
     
         bindEvents()
    
@@ -143,11 +182,28 @@
         function handleButtonState(){
             prevBtn.removeAttribute("disabled")
             nextBtn.removeAttribute("disabled")
+            isResultBtnDisable('none')
+
+            function isResultBtnDisable(displayvalue){
+                if(displayvalue=='none'){
+                    nextBtn.style.display='inline-block'
+                    resultbtn.style.display='none'
+                }
+                else{
+                    nextBtn.style.display='none'
+                    resultbtn.style.display='inline-block'
+                }
+            } 
+            
 
             if(activeQuestion<=1)
                 prevBtn.setAttribute("disabled", "disabled") 
-            else if(activeQuestion >= questions.length) 
-                nextBtn.setAttribute("disabled", "disabled") 
+            else if(activeQuestion >= questionsData.length) {
+                 
+                isResultBtnDisable('inline-block')
+            }
+           
+                
         }
         function bindEvents(){ 
             prevBtn.addEventListener('click',function(){
@@ -167,6 +223,10 @@
                     }
                     
                     addClass(e.target,'selected')
+
+                    if(ifAllQuestionsIsAnswered()){ 
+                        resultbtn.removeAttribute("disabled")
+                    }
                 } 
             })
         } 
@@ -175,6 +235,7 @@
             for(var i=0;i<options.length;i++){
                 var option = options[i] 
                 optionsHtml += optionTemplate.replace('[imgsrc]','src="'+option.imgsrc+'"')
+                                             .replace('[whichoption]',option.whichoption)
                                              .replace('[text]',option.text)
                                              .replace('[value]',option.value)
             }
@@ -195,12 +256,9 @@
     // objects execution
     var questionHandler = QuestionsHandler();
    
-
-    questionHandler.generateQuestion(questionsData[0])
-    questionHandler.generateQuestion(questionsData[1])
-    questionHandler.generateQuestion(questionsData[2])
-    questionHandler.generateQuestion(questionsData[3])
-
+    for(i=0; i<questionsData.length ;i++)
+        questionHandler.generateQuestion(questionsData[i])
+    
     questionHandler.init()
  
           
