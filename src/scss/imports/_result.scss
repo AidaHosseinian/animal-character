@@ -1,0 +1,23 @@
+#result-container{
+    display: none;
+    h2{
+        margin: 50px;
+    }
+    .result{
+        display: none;
+        .result-box{
+            padding: 10px;
+            width: 80%;
+            margin: 30px auto;
+        
+        }
+        &.show{
+            display: block
+        }
+    }
+}
+
+
+
+
+    

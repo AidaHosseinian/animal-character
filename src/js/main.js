@@ -7,21 +7,18 @@
             options:[
                 {
                     imgsrc:'assets/img/q1/adamak-charecter.png',
-                    whichoption:'A',
                     text:'Raise your hand and say :<br/> Me , Me!',
                     value:1
                 },
                 {
                     imgsrc:'assets/img/q1/shame-charecter.png',
-                    whichoption:'B',
                     text:'Hide your face of your teacher,while you are shaking of stress  ',
-                    value:1
+                    value:2
                 },
                 {
                     imgsrc:'assets/img/q1/confidence-charecter.png',
-                    whichoption:'C',
                     text:'Quickly read the text and the raise your hand',
-                    value:1 
+                    value:3 
                 }
             ] 
         },
@@ -31,21 +28,18 @@
             options:[
                 {
                     imgsrc:'assets/img/q2/basketball1.png',
-                    whichoption:'A',
                     text:'You do nothing and waiting for a chance in the end of the court',
                     value:1
                 },
                 {
                     imgsrc:'assets/img/q2/basketball2.png',
-                    whichoption:'B',
                     text:'Suddenly you are unpredictable and you\'re trying to win the trophy.',
-                    value:1
+                    value:2
                 },
                 {
                     imgsrc:'assets/img/q2/basketball3.png',
-                    whichoption:'C',
                     text:'You run quickly everywhere and motivate the team ',
-                    value:1
+                    value:3
                 }
             ] 
         },
@@ -55,21 +49,18 @@
             options:[
                 {
                     imgsrc:'assets/img/q3/shape1.png',
-                    whichoption:'A',
                     text:'Meeting friends',
                     value:1
                 },
                 {
                     imgsrc:'assets/img/q3/shape2.png',
-                    whichoption:'B',
                     text:'Do a Game',
-                    value:1
+                    value:2
                 },
                 {
                     imgsrc:'assets/img/q3/shape3.png',
-                    whichoption:'C',
                     text:'Your choice is reading a book',
-                    value:1
+                    value:3
                 }
             ] 
         },
@@ -79,21 +70,18 @@
             options:[
                 {
                     imgsrc:'assets/img/q4/pic1.png',
-                    whichoption:'A',
                     text:'You think about your tomorrow plan ',
                     value:1
                 },
                 {
                     imgsrc:'assets/img/q4/pic2.png',
-                    whichoption:'B',
                     text:'you sit in a corner and listen to others',
-                    value:1
+                    value:2
                 },
                 {
                     imgsrc:'assets/img/q4/pic3.png',
-                    whichoption:'C',
                     text:'You make fun for other people',
-                    value:1
+                    value:3
                 }
             ] 
         },
@@ -103,30 +91,31 @@
             options:[
                 {
                     imgsrc:'assets/img/q5/pic1.png',
-                    whichoption:'A',
                     text:'You think all the time when she/he sleep. ',
                     value:1
                 },
                 {
                     imgsrc:'assets/img/q5/pic2.png',
-                    whichoption:'B',
                     text:'you engage him/her',
-                    value:1
+                    value:2
                 },
                 {
                     imgsrc:'assets/img/q5/pic3.png',
-                    whichoption:'C',
                     text:'You try to control him until his/her parents come to him',
-                    value:1
+                    value:3
                 }
             ] 
         },
     ]
-
-
+ 
     // helpers
     function hasClass(element,className){
-        return element.className.indexOf(className) >= 0  
+        var split = element.className.split(' ')
+        for(var i = 0; i<split.length;i++){
+            if(split[i]==className)
+                return true
+        }
+        return false
     }
     function addClass(element,className){
         if(hasClass(element,className)===false){
@@ -138,6 +127,14 @@
             element.className = element.className.replace(' '+className,'');
         }
     }
+    function findChildByClass(parent,className){  
+        for (var i = 0; i < parent.children.length; i++) {
+            if (hasClass(parent.children[i],className)) {
+              return parent.children[i]; 
+            }        
+        }
+        return null
+    }
     function getTemplate(className){
         var placeHolder = document.getElementsByClassName(className)[0]
         var markup = placeHolder.outerHTML
@@ -148,6 +145,40 @@
         var selectedItems= document.getElementsByClassName('selected')
         return selectedItems.length == 5  
     } 
+    function showResultPage(){
+        var selectedItems= document.getElementsByClassName('selected')
+        var A=0,B=0,C=0
+        for(i=0; i<questionsData.length; i++){
+            var selectedItemsNum= selectedItems[i].getAttribute('data-value')
+            if(selectedItemsNum == 1) A++
+            else if (selectedItemsNum == 2) B++
+            else C++
+        }
+        
+        document.getElementById('questions-container').style.display = 'none'
+        document.getElementById('result-container').style.display = 'block'
+
+        var resultA = document.getElementById('content-result-a')
+        var resultB = document.getElementById('content-result-b')
+        var resultC = document.getElementById('content-result-c')
+
+        if(A>=3){
+            resultA.style.display = 'block'
+        } else if(B>=3){
+            resultB.style.display = 'block'
+        }else if(C>=3){
+            resultC.style.display = 'block'
+        } else if (A >=2 && B >=2 ){
+            resultA.style.display = 'block'
+            resultB.style.display = 'block' 
+        } else if (A >=2 && C >=2 ){
+            resultA.style.display = 'block'
+            resultC.style.display = 'block' 
+        }else if (C >=2 && B >=2 ){
+            resultB.style.display = 'block'
+            resultC.style.display = 'block' 
+        }
+    }
 
 
     // Handling questions behaviors
@@ -160,7 +191,8 @@
         var questionWrapper = document.getElementById('questions')
         var prevBtn= document.getElementById('question-prev-btn')
         var nextBtn= document.getElementById('question-next-btn')
-        var resultbtn= document.getElementById('question-result-btn')
+        var resultBtn= document.getElementById('question-result-btn')
+        var resultPage= document.getElementById('result-container')
     
         bindEvents()
    
@@ -187,11 +219,11 @@
             function isResultBtnDisable(displayvalue){
                 if(displayvalue=='none'){
                     nextBtn.style.display='inline-block'
-                    resultbtn.style.display='none'
+                    resultBtn.style.display='none'
                 }
                 else{
                     nextBtn.style.display='none'
-                    resultbtn.style.display='inline-block'
+                    resultBtn.style.display='inline-block'
                 }
             } 
             
@@ -212,20 +244,22 @@
             nextBtn.addEventListener('click',function(){
                 setActiveQuestion(1)
             })
-            questionWrapper.addEventListener('click',function (e){
+            resultBtn.addEventListener('click',function(){
+                showResultPage()
+            })
+            questionWrapper.addEventListener('click',function (e){ 
                 if(hasClass(e.target,'question-option')){
                     var optionsWrapper = e.target.parentNode.parentNode
 
                     var allOptions = optionsWrapper.children 
-                    for(var i = 0 ; i < allOptions.length;i++){ 
+                    for(var i = 0 ; i < allOptions.length;i++){
                         if(hasClass(allOptions[i],'option'))
                             removeClass(allOptions[i].children[0],'selected')
                     }
-                    
                     addClass(e.target,'selected')
 
                     if(ifAllQuestionsIsAnswered()){ 
-                        resultbtn.removeAttribute("disabled")
+                        resultBtn.removeAttribute("disabled")
                     }
                 } 
             })
@@ -235,7 +269,6 @@
             for(var i=0;i<options.length;i++){
                 var option = options[i] 
                 optionsHtml += optionTemplate.replace('[imgsrc]','src="'+option.imgsrc+'"')
-                                             .replace('[whichoption]',option.whichoption)
                                              .replace('[text]',option.text)
                                              .replace('[value]',option.value)
             }
@@ -250,7 +283,10 @@
             },
             init:function(){
                 setActiveQuestion(0)
-            } 
+            },
+            getCurrentQuestionElement:function(){
+                return questionWrapper.children[activeQuestion-1]
+            }
         }
     }  
     // objects execution
@@ -262,17 +298,20 @@
     questionHandler.init()
  
           
-    return
+ 
     // Handling questions options slider in smaller size screen < 768px.
     var QuestionOptionsGlobal = function(){ 
-        // getting references & default values
-        var optionsWrapper = document.getElementsByClassName('options-wrapper')[0];
-        var optionsNextBtn = document.getElementById('options-next-btn');
-        var optionsPrevBtn = document.getElementById('options-prev-btn');
+        // getting references & default values  
         var currentOption = 1;
 
         // Sliding options
         function slideOptions(dir){
+            var activeQuesionElement = questionHandler.getCurrentQuestionElement()
+
+            var optionsWrapper = findChildByClass(activeQuesionElement,'options-wrapper') 
+            var optionsNextBtn = findChildByClass(optionsWrapper,'options-next-btn')
+            var optionsPrevBtn = findChildByClass(optionsWrapper,'options-prev-btn')
+
             // remove option-x class from wrapper
             for(var i = 1;i<=3;i++){
                 removeClass(optionsWrapper,'option-'+i)
@@ -300,13 +339,12 @@
             addClass(optionsWrapper,'option-'+currentOption)
         } 
         // binding evetns
-        optionsNextBtn.addEventListener('click',function(){
-            slideOptions(1);
-        })
-        optionsPrevBtn.addEventListener('click',function(){
-            slideOptions(-1);
-        })
-        // initial calls 
+        document.getElementById('questions-container').addEventListener('click',function(e){ 
+            if(hasClass(e.target,'options-next-btn'))
+                slideOptions(1)
+            else  if(hasClass(e.target,'options-prev-btn'))
+                slideOptions(-1)
+        })  
         slideOptions(0);
     }
     QuestionOptionsGlobal(); 

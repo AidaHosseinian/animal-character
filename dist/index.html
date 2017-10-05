@@ -20,7 +20,7 @@
         </div>
     </header>
     <section class="body">
-        <div class="container">
+        <div class="container" id="questions-container">
             <p>
                 DO you want to know which animal charecter is similar to you ? 
                    <small> please answer all these questions to find</small>
@@ -31,14 +31,14 @@
                     <span>[num]- [title]</span> 
                     <div class="options-wrapper">
                         [options]
-                        <div class="arrow next" id="options-next-btn"></div>
-                        <div class="arrow prev" id="options-prev-btn"></div>
+                        <div class="arrow next options-next-btn"></div>
+                        <div class="arrow prev options-prev-btn"></div>
                     </div> 
                 </div>
 
                 <!-- option template markup -->
                 <div class="content-box option">
-                    <div class="question-option">
+                    <div class="question-option" data-value="[value]">
                         <div class="icon">
                                 <img [imgsrc] alt="">
                         </div>
@@ -48,16 +48,47 @@
                 </div>
                 
             </div>
-            <button type="button" class="btn prev" id="question-prev-btn" disabled>
+            <button type="button" class="btn prev-btn" id="question-prev-btn" disabled>
                 <span>Prev question</span>
             </button>
-            <button type="button" class="btn next" id="question-next-btn" disabled>
+            <button type="button" class="btn next-btn" id="question-next-btn" disabled>
                 <span>Next question</span>
             </button>
-            <button type="button" class="btn result" id="question-result-btn" disabled>
-                    <span>Result</span>
+            <button type="button" class="btn result-btn" id="question-result-btn" disabled>
+                    <span>Result &#10004;</span>
             </button>
         </div>
+
+        <div class="container" id="result-container">
+            <h2>Based on your answers we think your character might be like :</h2>
+            <div id="content-result-a" class="content result ">
+                <img src="assets/img/result/Scrat-icon1.png" alt="">
+                <div class="result-box">
+                    Squirrel Bella! You are like an agile squirrel, agile, full of energy and fun. 
+                    There are so many people who are saddened by your warmth and your usual smiles. Good mood!
+                </div>
+            </div>
+            <div id="content-result-b" class="content result">
+                <img src="assets/img/result/fox1.png" alt="">
+                <div class="result-box">
+                    Gold tail fox! You are like a fool, thoughtful and quiet. Curious, clever and situational. 
+                    For you, thinking is always ahead of the hurry. What a chance
+                </div>
+            </div>
+
+            <div id="content-result-c" class="content result">
+                <img src="assets/img/result/dear1.png" alt="">
+                <div class="result-box">
+                    Black Eye! A thoughtful, calm and lovely oven, but most of the time. 
+                    Always a caregiver who does not get caught up in the animal, and the usual caution made your mom and dad feel comfortable on your side. How great!
+                </div>
+            </div>
+           
+            <a href="/" class="btn  result-btn">
+                <span>Repeat</span>
+            </a>
+        </div>
+
     </section>
     <footer></footer>
   <script src="assets/main.js"></script>

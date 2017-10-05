@@ -10,7 +10,8 @@
     font-size: 16px;
     outline: none;
     @include transition(box-shadow ease-in-out .2s);
-    &.next,&.prev{
+    text-decoration: none;
+    &.next-btn,&.prev-btn{
         span{
             position: relative;
             @include transition(all ease-in-out .2s);
@@ -25,7 +26,7 @@
         }
     }
 
-    &.next{ 
+    &.next-btn{ 
         background-color: #15e810;
         span{
             padding-right: 0;
@@ -36,7 +37,7 @@
         }
     }
     
-    &.prev{ 
+    &.prev-btn{ 
         background-color: #E8D210;
         color:#333;
         span{
@@ -47,25 +48,25 @@
             }
         }
     }
-    &.result{
+    &.result-btn{
         background-color: #2196F3;
     }
 
     &:hover {
         cursor: pointer; 
         @include boxShadow(2px 2px 5px #ccc);
-        &.next,&.prev{ 
+        &.next-btn,&.prev-btn{ 
             span:after{
                 opacity: 1; 
             }
         }
-        &.next{ 
+        &.next-btn{ 
             background-color: darken(#15e810,10%);
             span{
                 padding-right: 15px;
             }
         }
-        &.prev{ 
+        &.prev-btn{ 
             background-color: lighten(#E8D210,20%);
             span{
                 padding-left: 15px;
