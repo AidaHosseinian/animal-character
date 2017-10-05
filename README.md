@@ -4,6 +4,10 @@ This simple fun tool will tell you which animal's character is similar to your c
 This project uses Gulp as javascript task runner to compile and minify SCSS and JS files.<br />
 It doesn't have any Javascript or CSS frameworks.<br /> 
 
+## Demo
+You can see a live version here :
+https://aidahosseinian.github.io/animal-character/dist/
+
 ## Build Process
 Clone the repository and then:
 
